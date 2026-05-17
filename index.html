@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Click on the bun! </title>
+    <style>
+        /* Styling the overall page vibe */
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #fcf8f2; /* Matches the soft cream tones in the photos */
+            font-family: 'Georgia', serif;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 600px;
+            padding: 20px;
+            cursor: pointer;
+        }
+
+        /* Screen 1: The Bun in the Oven */
+        #oven-screen {
+            transition: opacity 0.6s ease;
+        }
+
+        #oven-screen h2 {
+            color: #594a42;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+
+        /* Screen 2: The Big Reveal (Hidden by default) */
+        #reveal-screen {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.8s ease;
+        }
+
+        /* Shared image styling for a seamless transition */
+        .reveal-image {
+            width: 100%;
+            max-width: 550px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            transition: transform 0.3s ease;
+        }
+
+        .reveal-image:hover {
+            transform: scale(1.02);
+        }
+
+        .hint-text {
+            color: #a69080;
+            font-size: 0.9rem;
+            margin-top: 15px;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" onclick="revealSurprise()">
+        
+        <!-- FIRST SCREEN: BUN IN THE OVEN -->
+        <div id="oven-screen">
+            <h2>Tap the oven to see what's baking...</h2>
+            <!-- Make sure this filename matches your first image exactly -->
+            <img src="bun.png" alt="A bun in the oven" class="reveal-image">
+            <p class="hint-text">(Click anywhere to open)</p>
+        </div>
+
+        <!-- SECOND SCREEN: THE BABY REVEAL -->
+        <div id="reveal-screen">
+            <!-- Make sure this filename matches your second image exactly -->
+            <img src="surprise.png" alt="You are going to be a Father!" class="reveal-image">
+        </div>
+
+    </div>
+
+    <script>
+        function revealSurprise() {
+            const ovenScreen = document.getElementById('oven-screen');
+            const revealScreen = document.getElementById('reveal-screen');
+
+            // Prevent multiple clicks during transition
+            if (ovenScreen.style.opacity === '0') return;
+
+            // Fade out the first screen
+            ovenScreen.style.opacity = '0';
+
+            setTimeout(() => {
+                ovenScreen.style.display = 'none'; // Remove oven from view
+                revealScreen.style.display = 'block'; // Show baby reveal screen
+                
+                // Trigger smooth fade-in for the baby image
+                setTimeout(() => {
+                    revealScreen.style.opacity = '1';
+                }, 50);
+            }, 600); // Matches the 0.6s fade-out animation
+        }
+    </script>
+</body>
+</html>
